@@ -6,3 +6,7 @@ app = FastAPI()
 @app.get("/")
 def root():
     return {"message": "Hello from my Task API"}
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
