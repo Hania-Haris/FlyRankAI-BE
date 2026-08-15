@@ -73,3 +73,5 @@ def update_task(task_id: int, task: TaskUpdate):
             return existing_task
 
     raise HTTPException(status_code=404, detail="Task not found")
+
+   
