@@ -74,4 +74,11 @@ def update_task(task_id: int, task: TaskUpdate):
 
     raise HTTPException(status_code=404, detail="Task not found")
 
-   
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id: int):
+    for index, task in enumerate(tasks):
+        if task["id"] == task_id:
+            deleted_task = tasks.pop(index)
+            return deleted_task
+
+    raise HTTPException(status_code=404, detail="Task not found")
