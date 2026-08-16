@@ -709,3 +709,134 @@ just presenting code that looked plausible.
   -----------------------------------------------------------------------
 
 ------------------------------------------------------------------------
+# 11. The Biggest Finding
+
+The biggest improvement did not come from simply making the prompt
+longer.
+
+It came from **telling the model what not to do**.
+
+The transition from Version 3 to Version 4 was especially useful:
+
+### Before constraints
+
+The model produced:
+
+-   PATCH
+-   filtering
+-   search
+-   sorting
+-   pagination
+-   UUIDs
+-   timestamps
+-   status/priority enums
+-   extra models
+
+### After constraints
+
+The model produced:
+
+-   GET all
+-   GET one
+-   POST
+-   PUT
+-   DELETE
+-   integer IDs
+-   title
+-   description
+-   completed
+-   in-memory storage
+
+The lesson I would take from this is:
+
+> **When AI is over-solving a problem, adding more context is not always
+> enough. Explicit constraints can be much more effective because they
+> define the boundaries of the solution.**
+
+------------------------------------------------------------------------
+
+# 12. Final Reusable Prompt
+
+The final prompt should be clean enough that another person on my track
+could use it without knowing the background conversation.
+
+> Build a basic CRUD API for managing tasks.
+>
+> **Context:** This is a Week 02 backend engineering internship project.
+> I am using Python and FastAPI, with an in-memory list for storage.
+>
+> **Scope:** Implement only these five operations:
+>
+> -   `GET /tasks` --- get all tasks
+> -   `GET /tasks/{task_id}` --- get one task by integer ID
+> -   `POST /tasks` --- create a task
+> -   `PUT /tasks/{task_id}` --- update a task
+> -   `DELETE /tasks/{task_id}` --- delete a task
+>
+> Each task should contain only:
+>
+> -   `id` --- integer
+> -   `title` --- string
+> -   `description` --- string
+> -   `completed` --- boolean
+>
+> Generate unique incrementing integer IDs for new tasks.
+>
+> Do not add PATCH, filtering, search, pagination, authentication, a
+> database, UUIDs, or other features outside this scope.
+>
+> **Output:** Return a complete, readable `main.py` file first, followed
+> by the commands needed to install, run, and test it.
+>
+> **Verification:** Before considering the solution complete, check
+> that:
+>
+> -   all five endpoints are implemented;
+> -   POST returns `201 Created`;
+> -   GET, PUT, and DELETE return `404 Not Found` for a nonexistent
+>     task;
+> -   new tasks receive unique incrementing IDs.
+>
+> Do not claim that you ran or verified the code unless you actually
+> did. If you cannot run the code, clearly say that and provide the
+> tests someone should run instead.
+
+------------------------------------------------------------------------
+
+# 13. Final Reflection
+
+This exercise changed how I think about prompting.
+
+My initial prompt was only:
+
+> "Write backend code for a CRUD API."
+
+That left almost everything open, so the model filled the gaps with its
+own assumptions.
+
+By changing one ingredient at a time, I could see what each layer
+actually contributed.
+
+The most useful progression was:
+
+**Goal → Context → Format → Constraints → Verification**
+
+The most important discovery was that **constraints had a larger effect
+on the actual usefulness of the code than simply asking for a better
+format**. The output-format layer made the answer easier to consume, but
+the constraints were what finally stopped the model from building
+features I did not need.
+
+The verification layer then made the final result more trustworthy by
+focusing attention on the behaviors that actually mattered.
+
+The final prompt is therefore not just "more detailed." Each part has a
+specific job:
+
+-   **Goal** says what I am building.
+-   **Context** says where it fits.
+-   **Format** says how I want the answer delivered.
+-   **Constraints** define the boundaries.
+-   **Verification** defines what must be true before the answer is
+    considered complete.
+
