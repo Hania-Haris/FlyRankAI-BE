@@ -5,3 +5,68 @@ Assignment
 Track: General AI Fluency
 Week: 02
 Assignment: The Prompt Ladder
+1. Starting Point
+
+Real project used for the ladder
+
+I had built a basic CRUD API in Python using FastAPI as part of my Week
+02 backend engineering internship work.
+
+The actual API supported:
+
+GET /tasks
+
+GET /tasks/{task_id}
+
+POST /tasks
+
+PUT /tasks/{task_id}
+
+DELETE /tasks/{task_id}
+
+The implementation used an in-memory list rather than a database. Tasks
+had an integer ID, title, description, and completed status.
+
+The purpose of the Prompt Ladder was to see how much better an AI
+response became when I gave it progressively better instructions.
+
+2. Ladder Overview
+
+Run               Version           Single layer      Main result
+added
+
+1                 Baseline          None              AI guessed the
+technology,
+resource, scope,
+and even
+unrelated context
+
+2                 Version 1         Clearer goal      AI understood
+that the resource
+was tasks, but
+still guessed the
+technology and
+scope
+
+3                 Version 2         Real context      AI switched to
+FastAPI and
+in-memory
+storage, but
+still overbuilt
+the API
+
+4                 Version 3         Specified output  Output became
+format            more usable, but
+the scope problem
+remained
+
+5                 Version 4         Constraints       Major reduction
+in invented
+features; output
+closely matched
+the actual
+assignment
+
+A key lesson was that not every layer helped equally. Constraints
+made the biggest practical difference, while output format improved
+usability without fixing the underlying scope problem.
