@@ -1,28 +1,38 @@
-Week 02 AI Fluency --- The Prompt Ladder
+# Week 02 AI Fluency --- The Prompt Ladder
 
-Assignment
+## Assignment
 
-Track: General AI Fluency
-Week: 02
-Assignment: The Prompt Ladder
-1. Starting Point
+**Track:** General AI Fluency\
+**Week:** 02\
+**Assignment:** The Prompt Ladder
 
-Real project used for the ladder
+### Why this matters
+
+The gap between a weak prompt and an engineered prompt can be a cheap
+but significant performance upgrade. The purpose of this exercise was
+not simply to produce a better prompt, but to change one ingredient at a
+time, compare the outputs, and identify which ingredients actually
+earned their place.
+
+This ladder uses a real piece of work from my Week 02 backend
+engineering internship: a **FastAPI CRUD API for managing tasks**.
+
+------------------------------------------------------------------------
+
+# 1. Starting Point
+
+## Real project used for the ladder
 
 I had built a basic CRUD API in Python using FastAPI as part of my Week
 02 backend engineering internship work.
 
 The actual API supported:
 
-GET /tasks
-
-GET /tasks/{task_id}
-
-POST /tasks
-
-PUT /tasks/{task_id}
-
-DELETE /tasks/{task_id}
+-   `GET /tasks`
+-   `GET /tasks/{task_id}`
+-   `POST /tasks`
+-   `PUT /tasks/{task_id}`
+-   `DELETE /tasks/{task_id}`
 
 The implementation used an in-memory list rather than a database. Tasks
 had an integer ID, title, description, and completed status.
@@ -30,43 +40,119 @@ had an integer ID, title, description, and completed status.
 The purpose of the Prompt Ladder was to see how much better an AI
 response became when I gave it progressively better instructions.
 
-2. Ladder Overview
+------------------------------------------------------------------------
 
-Run               Version           Single layer      Main result
-added
+# 2. Ladder Overview
 
-1                 Baseline          None              AI guessed the
-technology,
-resource, scope,
-and even
-unrelated context
+  -----------------------------------------------------------------------
+  Run               Version           Single layer      Main result
+                                      added             
+  ----------------- ----------------- ----------------- -----------------
+  1                 Baseline          None              AI guessed the
+                                                        technology,
+                                                        resource, scope,
+                                                        and even
+                                                        unrelated context
 
-2                 Version 1         Clearer goal      AI understood
-that the resource
-was tasks, but
-still guessed the
-technology and
-scope
+  2                 Version 1         Clearer goal      AI understood
+                                                        that the resource
+                                                        was tasks, but
+                                                        still guessed the
+                                                        technology and
+                                                        scope
 
-3                 Version 2         Real context      AI switched to
-FastAPI and
-in-memory
-storage, but
-still overbuilt
-the API
+  3                 Version 2         Real context      AI switched to
+                                                        FastAPI and
+                                                        in-memory
+                                                        storage, but
+                                                        still overbuilt
+                                                        the API
 
-4                 Version 3         Specified output  Output became
-format            more usable, but
-the scope problem
-remained
+  4                 Version 3         Specified output  Output became
+                                      format            more usable, but
+                                                        the scope problem
+                                                        remained
 
-5                 Version 4         Constraints       Major reduction
-in invented
-features; output
-closely matched
-the actual
-assignment
+  5                 Version 4         Constraints       Major reduction
+                                                        in invented
+                                                        features; output
+                                                        closely matched
+                                                        the actual
+                                                        assignment
 
-A key lesson was that not every layer helped equally. Constraints
+  6                 Version 5         Verification      AI explicitly
+                                      requirements      checked the
+                                                        required
+                                                        behaviors and
+                                                        reported the test
+                                                        results
+  -----------------------------------------------------------------------
+
+A key lesson was that **not every layer helped equally**. Constraints
 made the biggest practical difference, while output format improved
 usability without fixing the underlying scope problem.
+
+------------------------------------------------------------------------
+
+# 3. Run 1 --- Weak Baseline
+
+## Layer
+
+**Baseline --- no added layer**
+
+## Hypothesis
+
+If I give AI the kind of vague prompt I might have written a month ago,
+it will have to fill in many missing details itself. The baseline should
+reveal what the model assumes when I do not provide enough information.
+
+## Prompt
+
+> Write backend code for a CRUD API.
+
+## Output
+
+Claude responded:
+
+> Here's a Node.js + Express CRUD API with in-memory storage (easy to
+> swap for a real DB later). I picked a generic "items" resource ---
+> rename it to match whatever you're building.
+>
+> Full CRUD for an `items` resource --- create, list (with
+> search/pagination), get one, full/partial update, delete, plus
+> validation and error handling. `npm install && npm start` gets it
+> running on port 3000.
+>
+> Since you've been doing Firebase-backed work (like the Pizza Bar admin
+> dashboard), swapping the in-memory array for Firestore calls would be
+> a quick follow-up if you want --- just say the word and I'll wire it
+> in.
+
+## What changed in the prompt
+
+Nothing. This was deliberately the weak baseline.
+
+## What improved in the output
+
+Nothing yet. This was the reference point against which all later
+versions were compared.
+
+## What still failed
+
+The response guessed almost everything:
+
+-   It chose **Node.js + Express** even though my project used
+    Python/FastAPI.
+-   It chose a generic `items` resource instead of tasks.
+-   It added search and pagination that I did not ask for.
+-   It assumed Firebase/Firestore context that was not present in the
+    prompt.
+-   It suggested a much broader implementation than the simple Week 02
+    CRUD API I actually needed.
+
+## What I would try next
+
+Make the goal clearer by specifying what the CRUD API is actually
+supposed to manage.
+
+------------------------------------------------------------------------
